@@ -1,0 +1,52 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background: #f7f7f7;
+  color: #333;
+}
+
+header {
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+nav {
+  background: #222;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  padding: 14px 20px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background: #555;
+}
+
+.container {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+
+img.responsive {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.gallery img {
+  width: 30%;
+  margin: 1%;
+  vertical-align: top;
+  border-radius: 6px;
+}
