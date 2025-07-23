@@ -50,3 +50,8 @@ img.responsive {
   vertical-align: top;
   border-radius: 6px;
 }
+
+.contact-info a {
+    color:white;
+    font-weight: bold;
+}
