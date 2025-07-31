@@ -60,3 +60,9 @@ img.responsive {
     color:white;
     font-weight: bold;
 }
+
+.banner {
+  width: 100%;
+  height: auto;
+  display: block;
+}
