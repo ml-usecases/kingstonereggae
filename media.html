@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Official website of Kingstone, a five-piece reggae group. Learn more about us, explore our music and watch our videos.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Official website of Kingstone, a five-piece reggae group. Learn more about us, explore our music and watch our videos." />
   <title>Media</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <style>
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      max-width: 100%;
+      margin: 2rem auto;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <img src="images/banner.jpg" alt="Kingstone Reggae" class="banner">
+    <img src="images/banner.jpg" alt="Kingstone Reggae" class="banner"/>
     <h1>WATCH US PLAY</h1>
     <div class="contact-info">
-            <a href="mailto:info@kingstonereggae.uk?subject=Hi Kingstone!">info@kingstonereggae.uk</a>
+      <a href="mailto:info@kingstonereggae.uk?subject=Hi Kingstone!">info@kingstonereggae.uk</a>
     </div>
   </header>
+
   <nav>
     <a href="index.html">Home</a>
     <a href="john.html">John</a>
@@ -29,10 +49,12 @@
     <a href="paul.html">Paul</a>
     <a href="media.html">Media</a>
   </nav>
-  <div class="container">
 
+  <div class="container">
     <h2>Videos</h2>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/2L6UXMh20tI?si=B8wP6lKZ3KBW9D6z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/2L6UXMh20tI?si=B8wP6lKZ3KBW9D6z" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
   </div>
 </body>
 </html>
