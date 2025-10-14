@@ -4,33 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Official website of Kingstone, a five-piece reggae group. Learn more about us, explore our music and watch our videos." />
-  <title>Media</title>
+  <title>Gallery | Kingstone Reggae</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&family=Montserrat&display=swap" rel="stylesheet" />
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <style>
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
-      height: 0;
-      overflow: hidden;
-      max-width: 100%;
-      margin: 2rem auto;
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
 </head>
+
 <body>
   <header>
     <img src="images/banner.jpg" alt="Kingstone Reggae" class="banner"/>
@@ -53,9 +32,42 @@
 
   <div class="container">
     <h2>Gallery</h2>
-    <img src="images/band2.jpg" alt="Band" class="responsive">
-    <img src="images/band_rehearsal.jpg" alt="Band Rehearsal" class="responsive">
-    <img src="images/israel3.jpg" alt="Israel" class="responsive">
+    <div class="gallery" id="gallery"></div>
   </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <img src="" alt="Expanded view">
+  </div>
+
+  <script>
+    const images = [
+      "band2.jpg", "band_rehearsal.jpg", "israel3.jpg"
+    ];
+
+    const gallery = document.getElementById('gallery');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    images.forEach(name => {
+      const img = document.createElement('img');
+      img.src = `images/${name}`;
+      img.alt = name.split('.')[0].replace(/_/g, ' ');
+      img.loading = "lazy";
+      gallery.appendChild(img);
+
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+  </script>
 </body>
 </html>
