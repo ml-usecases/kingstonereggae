@@ -37,10 +37,13 @@
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <span class="lightbox-arrow left" id="prevArrow">&#10094;</span>
     <img src="" alt="Expanded view">
+    <span class="lightbox-arrow right" id="nextArrow">&#10095;</span>
   </div>
 
   <script>
+    // List of image filenames
     const images = [
       "bw10.jpg", "gal01.jpg", "gal02.jpg", "gal03.jpg", 
       "gal04.jpg", "gal05.jpg", "gal06.jpg", "gal07.jpg", 
@@ -53,8 +56,13 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = lightbox.querySelector('img');
     const lightboxClose = document.getElementById('lightboxClose');
+    const prevArrow = document.getElementById('prevArrow');
+    const nextArrow = document.getElementById('nextArrow');
 
-    images.forEach(name => {
+    let currentIndex = 0;
+
+    // Create image grid
+    images.forEach((name, index) => {
       const img = document.createElement('img');
       img.src = `images/${name}`;
       img.alt = name.split('.')[0].replace(/_/g, ' ');
@@ -62,14 +70,47 @@
       gallery.appendChild(img);
 
       img.addEventListener('click', () => {
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
+        currentIndex = index;
+        showImage();
       });
     });
 
+    function showImage() {
+      lightboxImg.src = `images/${images[currentIndex]}`;
+      lightbox.classList.add('active');
+    }
+
+    // Close
     lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
-    lightbox.addEventListener('click', e => {
+
+    // Navigate with arrows
+    nextArrow.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage();
+    });
+
+    prevArrow.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage();
+    });
+
+    // Click outside image to close
+    lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'ArrowRight') {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage();
+      } else if (e.key === 'ArrowLeft') {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage();
+      } else if (e.key === 'Escape') {
+        lightbox.classList.remove('active');
+      }
     });
   </script>
 </body>
