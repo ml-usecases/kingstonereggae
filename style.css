@@ -237,3 +237,10 @@ img.responsive {
 .lightbox-arrow.right {
   right: 1rem;
 }
+
+.no-underline,
+.no-underline:visited,
+.no-underline:hover,
+.no-underline:active {
+  text-decoration: none;
+}
