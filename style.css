@@ -288,3 +288,32 @@ img.responsive {
   fill: #FFBF00; /* Amber Gold on hover */
   transform: scale(1.15); /* Slight pop out effect */
 }
+
+/* Using 'header' at the start makes this rule stronger than global ones */
+header .social-svg {
+  width: 24px !important; /* The !important tag is a 'brute force' fix */
+  height: 24px !important;
+  display: inline-block;
+  fill: #FFFFFF;
+  transition: all 0.3s ease;
+  vertical-align: middle;
+}
+
+header .contact-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+header .social-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Hover effect */
+header .social-svg:hover {
+  fill: #FFBF00;
+  transform: scale(1.2);
+}
