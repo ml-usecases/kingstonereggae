@@ -317,3 +317,28 @@ header .social-svg:hover {
   fill: #FFBF00;
   transform: scale(1.2);
 }
+
+/* This targets the links specifically and kills any underlines */
+.social-links a {
+  text-decoration: none !important;
+  display: flex; /* Helps align the icon inside the link perfectly */
+  align-items: center;
+  line-height: 0; /* Prevents the browser from thinking there is 'text' height */
+}
+
+/* This ensures the container doesn't try to underline the spaces between icons */
+.social-links {
+  display: flex;
+  gap: 15px; 
+  align-items: center;
+  text-decoration: none;
+}
+
+/* Reinforce the SVG size and fix vertical alignment */
+header .social-svg {
+  width: 24px !important;
+  height: 24px !important;
+  fill: #FFFFFF;
+  transition: all 0.3s ease;
+  display: block; /* Changing from inline to block stops underline behavior */
+}
