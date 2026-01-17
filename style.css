@@ -342,3 +342,19 @@ header .social-svg {
   transition: all 0.3s ease;
   display: block; /* Changing from inline to block stops underline behavior */
 }
+
+.social-links {
+  display: flex;       /* This is the most important "smush" tool */
+  gap: 15px;           /* This controls the space exactly, with no 'ghost' underlines */
+  align-items: center;
+  
+  /* The Fixes: */
+  text-decoration: none !important; /* Forces underlines to vanish */
+  font-size: 0;                     /* Collapses the invisible text-space to zero */
+}
+
+.social-links a {
+  text-decoration: none !important;
+  display: flex;       /* Makes the link "shrink-wrap" the icon */
+  line-height: 0;      /* Removes any vertical text spacing */
+}
