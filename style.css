@@ -244,3 +244,47 @@ img.responsive {
 .no-underline:active {
   text-decoration: none;
 }
+
+/* Layout Container */
+.contact-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 25px; /* Space between email and the group of icons */
+  margin-top: 20px;
+  flex-wrap: wrap; /* Ensures it stacks on small phone screens */
+}
+
+/* Email Styling */
+.email-link {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: sans-serif;
+  transition: color 0.3s ease;
+}
+
+.email-link:hover {
+  color: #FFBF00; /* Turns Amber Gold on hover */
+}
+
+/* Social Icon Group Styling */
+.social-links {
+  display: flex;
+  gap: 18px; /* Space between each icon */
+  align-items: center;
+}
+
+.social-svg {
+  width: 24px; /* Professional, subtle size */
+  height: auto;
+  fill: #FFFFFF; /* White by default */
+  transition: fill 0.3s ease, transform 0.2s ease;
+}
+
+/* Global Hover Effect for Icons */
+.social-svg:hover {
+  fill: #FFBF00; /* Amber Gold on hover */
+  transform: scale(1.15); /* Slight pop out effect */
+}
