@@ -72,7 +72,7 @@ nav a:hover {
   gap: 12px;
   align-items: center;
   text-decoration: none !important;
-  font-size: 0; /* Kills ghost underscores */
+  font-size: 0; /* Prevents ghost underscores/spaces */
 }
 
 .social-links a {
@@ -82,7 +82,7 @@ nav a:hover {
   border: none;
 }
 
-/* Icons Style (SVG & Images) */
+/* Unified Icon Sizing (SVG & Image sources) */
 header .social-svg, 
 .social-icon-img {
   height: 22px !important;
@@ -92,29 +92,33 @@ header .social-svg,
   display: block;
 }
 
-/* For external source images (Spotify/Apple/Bandcamp) to appear white */
+/* Ensure official image logos start as White */
 .social-icon-img {
   filter: brightness(0) invert(1);
 }
 
-/* Hover Scaling */
+/* Global Hover Scale */
 .social-links a:hover .social-svg,
 .social-links a:hover .social-icon-img {
   transform: scale(1.25);
 }
 
-/* Brand Hover Colors for SVGs (FB, IG, YT, TikTok) */
+/* SVG Brand Colors (Direct Fill) */
 .social-links a[aria-label="Facebook"]:hover svg { fill: #1877F2; }
-.social-links a[aria-label="Instagram"]:hover svg { fill: #E1306C; }
 .social-links a[aria-label="YouTube"]:hover svg { fill: #FF0000; }
 .social-links a[aria-label="TikTok"]:hover svg { fill: #00f2ea; }
 
-/* Brand Hover Colors for Images (Spotify, Apple, Bandcamp) via Filter */
+/* Image Brand Colors (Calculated Filters) */
+/* Instagram Pink (#E1306C) */
+.social-links a[aria-label="Instagram"]:hover .social-icon-img { filter: invert(29%) sepia(87%) saturate(2751%) hue-rotate(315deg) brightness(91%) contrast(105%); }
+/* Spotify Green (#1DB954) */
 .social-links a[aria-label="Spotify"]:hover .social-icon-img { filter: invert(44%) sepia(91%) saturate(1352%) hue-rotate(114deg) brightness(95%) contrast(101%); }
+/* Apple Music Red (#FC3C44) */
 .social-links a[aria-label="Apple Music"]:hover .social-icon-img { filter: invert(36%) sepia(84%) saturate(3733%) hue-rotate(341deg) brightness(101%) contrast(98%); }
+/* Bandcamp Teal (#629aa9) */
 .social-links a[aria-label="Bandcamp"]:hover .social-icon-img { filter: invert(61%) sepia(11%) saturate(1210%) hue-rotate(146deg) brightness(93%) contrast(87%); }
 
-/* ---------- IMAGES ---------- */
+/* ---------- IMAGES & GALLERY ---------- */
 img.responsive {
   max-width: 100%;
   height: auto;
@@ -132,32 +136,6 @@ img.responsive {
   .banner { width: 80%; }
 }
 
-/* ---------- VIDEO EMBEDS ---------- */
-.video-wrapper, .portrait-video {
-  position: relative;
-  width: 100%;
-  padding-bottom: 177.78%; /* 9:16 Aspect Ratio */
-  height: 0;
-  overflow: hidden;
-}
-
-.video-wrapper iframe, .portrait-video iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.tiktok-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 2rem auto;
-}
-
-/* ---------- GALLERY & LIGHTBOX ---------- */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -179,6 +157,49 @@ img.responsive {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* ---------- VIDEO & EMBEDS ---------- */
+.video-wrapper, .portrait-video {
+  position: relative;
+  width: 100%;
+  padding-bottom: 177.78%; /* 9:16 vertical ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper iframe, .portrait-video iframe {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.tiktok-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 2rem auto;
+}
+
+/* ---------- BANDCAMP EMBED ---------- */
+.bandcamp-container {
+  padding: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.bandcamp-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1.15;
+}
+
+.bandcamp-wrapper iframe {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%; border: 0;
+}
+
+/* ---------- LIGHTBOX ---------- */
 .lightbox {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -205,7 +226,7 @@ img.responsive {
   position: absolute;
   top: 50%; font-size: 3rem; color: white;
   cursor: pointer; transform: translateY(-50%);
-  padding: 0 1rem; transition: opacity 0.3s ease;
+  padding: 0 1rem;
 }
 
 .lightbox-arrow.left { left: 1rem; }
