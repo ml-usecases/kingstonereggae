@@ -16,6 +16,7 @@ header {
 header h1 {
   font-family: 'Montserrat', sans-serif;
   font-size: 3em;
+  margin-bottom: 0.5rem;
 }
 
 header h2 {
@@ -38,16 +39,80 @@ nav a:hover {
   background: #555;
 }
 
-.contact-info a {
-  color: white;
-  font-weight: bold;
-}
-
 .container {
   padding: 20px;
   max-width: 900px;
   margin: auto;
 }
+
+/* ---------- HEADER CONTACT & SOCIALS ---------- */
+.contact-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.email-link {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.email-link:hover {
+  color: #FFBF00; /* Amber Gold */
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none !important;
+  font-size: 0; /* Kills ghost underscores */
+}
+
+.social-links a {
+  text-decoration: none !important;
+  display: flex;
+  line-height: 0;
+  border: none;
+}
+
+/* Icons Style (SVG & Images) */
+header .social-svg, 
+.social-icon-img {
+  height: 22px !important;
+  width: auto !important;
+  fill: #FFFFFF;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+/* For external source images (Spotify/Apple/Bandcamp) to appear white */
+.social-icon-img {
+  filter: brightness(0) invert(1);
+}
+
+/* Hover Scaling */
+.social-links a:hover .social-svg,
+.social-links a:hover .social-icon-img {
+  transform: scale(1.25);
+}
+
+/* Brand Hover Colors for SVGs (FB, IG, YT, TikTok) */
+.social-links a[aria-label="Facebook"]:hover svg { fill: #1877F2; }
+.social-links a[aria-label="Instagram"]:hover svg { fill: #E1306C; }
+.social-links a[aria-label="YouTube"]:hover svg { fill: #FF0000; }
+.social-links a[aria-label="TikTok"]:hover svg { fill: #00f2ea; }
+
+/* Brand Hover Colors for Images (Spotify, Apple, Bandcamp) via Filter */
+.social-links a[aria-label="Spotify"]:hover .social-icon-img { filter: invert(44%) sepia(91%) saturate(1352%) hue-rotate(114deg) brightness(95%) contrast(101%); }
+.social-links a[aria-label="Apple Music"]:hover .social-icon-img { filter: invert(36%) sepia(84%) saturate(3733%) hue-rotate(341deg) brightness(101%) contrast(98%); }
+.social-links a[aria-label="Bandcamp"]:hover .social-icon-img { filter: invert(61%) sepia(11%) saturate(1210%) hue-rotate(146deg) brightness(93%) contrast(87%); }
 
 /* ---------- IMAGES ---------- */
 img.responsive {
@@ -64,22 +129,19 @@ img.responsive {
 }
 
 @media (max-width: 600px) {
-  .banner {
-    width: 80%;
-    height: auto;
-  }
+  .banner { width: 80%; }
 }
 
 /* ---------- VIDEO EMBEDS ---------- */
-.video-wrapper {
+.video-wrapper, .portrait-video {
   position: relative;
   width: 100%;
-  padding-bottom: 177.78%; /* Aspect ratio for TikTok videos (~9:16) */
+  padding-bottom: 177.78%; /* 9:16 Aspect Ratio */
   height: 0;
+  overflow: hidden;
 }
 
-.video-wrapper iframe,
-.video-wrapper blockquote {
+.video-wrapper iframe, .portrait-video iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -95,65 +157,7 @@ img.responsive {
   margin: 2rem auto;
 }
 
-.tiktok-embed {
-  width: 100% !important;
-  max-width: 605px;
-}
-
-.portrait-video {
-  position: relative;
-  width: 100%;
-  padding-top: 177.78%;
-  overflow: hidden;
-}
-
-.portrait-video iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* ---------- BANDCAMP SECTION ---------- */
-.bandcamp-container {
-  padding: 1rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.bandcamp-container h2 {
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
-.bandcamp-container h2 a {
-  color: #0f91ff;
-  text-decoration: none;
-}
-
-.bandcamp-container h2 a:hover {
-  text-decoration: underline;
-}
-
-.bandcamp-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  aspect-ratio: 1 / 1.15;
-}
-
-.bandcamp-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* ---------- GALLERY ---------- */
+/* ---------- GALLERY & LIGHTBOX ---------- */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -175,13 +179,9 @@ img.responsive {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* ---------- LIGHTBOX ---------- */
 .lightbox {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
@@ -192,202 +192,24 @@ img.responsive {
   z-index: 1000;
 }
 
-.lightbox.active {
-  visibility: visible;
-  opacity: 1;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 80%;
-  border-radius: 8px;
-}
+.lightbox.active { visibility: visible; opacity: 1; }
+.lightbox img { max-width: 90%; max-height: 80%; border-radius: 8px; }
 
 .lightbox-close {
   position: absolute;
-  top: 1.5rem;
-  right: 2rem;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
+  top: 1.5rem; right: 2rem;
+  font-size: 2rem; color: white; cursor: pointer;
 }
 
-/* ---------- LIGHTBOX ARROWS ---------- */
 .lightbox-arrow {
   position: absolute;
-  top: 50%;
-  font-size: 3rem;
-  color: white;
-  cursor: pointer;
-  user-select: none;
-  transform: translateY(-50%);
-  padding: 0 1rem;
-  transition: opacity 0.3s ease;
+  top: 50%; font-size: 3rem; color: white;
+  cursor: pointer; transform: translateY(-50%);
+  padding: 0 1rem; transition: opacity 0.3s ease;
 }
 
-.lightbox-arrow:hover {
-  opacity: 0.7;
-}
+.lightbox-arrow.left { left: 1rem; }
+.lightbox-arrow.right { right: 1rem; }
 
-.lightbox-arrow.left {
-  left: 1rem;
-}
-
-.lightbox-arrow.right {
-  right: 1rem;
-}
-
-.no-underline,
-.no-underline:visited,
-.no-underline:hover,
-.no-underline:active {
-  text-decoration: none;
-}
-
-/* Layout Container */
-.contact-info {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 25px; /* Space between email and the group of icons */
-  margin-top: 20px;
-  flex-wrap: wrap; /* Ensures it stacks on small phone screens */
-}
-
-/* Email Styling */
-.email-link {
-  color: #FFFFFF;
-  text-decoration: none;
-  font-weight: 600;
-  font-family: sans-serif;
-  transition: color 0.3s ease;
-}
-
-.email-link:hover {
-  color: #FFBF00; /* Turns Amber Gold on hover */
-}
-
-/* Social Icon Group Styling */
-.social-links {
-  display: flex;
-  gap: 18px; /* Space between each icon */
-  align-items: center;
-}
-
-.social-svg {
-  width: 24px; /* Professional, subtle size */
-  height: auto;
-  fill: #FFFFFF; /* White by default */
-  transition: fill 0.3s ease, transform 0.2s ease;
-}
-
-/* Global Hover Effect for Icons */
-.social-svg:hover {
-  fill: #FFBF00; /* Amber Gold on hover */
-  transform: scale(1.15); /* Slight pop out effect */
-}
-
-/* Using 'header' at the start makes this rule stronger than global ones */
-header .social-svg {
-  width: 24px !important; /* The !important tag is a 'brute force' fix */
-  height: 24px !important;
-  display: inline-block;
-  fill: #FFFFFF;
-  transition: all 0.3s ease;
-  vertical-align: middle;
-}
-
-header .contact-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-header .social-links {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-/* Hover effect */
-header .social-svg:hover {
-  fill: #FFBF00;
-  transform: scale(1.2);
-}
-
-/* This targets the links specifically and kills any underlines */
-.social-links a {
-  text-decoration: none !important;
-  display: flex; /* Helps align the icon inside the link perfectly */
-  align-items: center;
-  line-height: 0; /* Prevents the browser from thinking there is 'text' height */
-}
-
-/* This ensures the container doesn't try to underline the spaces between icons */
-.social-links {
-  display: flex;
-  gap: 15px; 
-  align-items: center;
-  text-decoration: none;
-}
-
-/* Reinforce the SVG size and fix vertical alignment */
-header .social-svg {
-  width: 24px !important;
-  height: 24px !important;
-  fill: #FFFFFF;
-  transition: all 0.3s ease;
-  display: block; /* Changing from inline to block stops underline behavior */
-}
-
-/* Container for Email and Socials */
-.contact-info {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.social-links {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  text-decoration: none !important;
-  font-size: 0; /* Prevents underlines on spaces */
-}
-
-/* Individual social media links */
-.social-links a {
-  text-decoration: none !important;
-  display: flex;
-  line-height: 0;
-  border: none;
-}
-
-/* The actual SVG icon shapes */
-header .social-svg {
-  height: 22px !important;
-  width: auto !important;
-  fill: #FFFFFF; /* High-contrast white */
-  transition: all 0.3s ease;
-  display: block;
-}
-
-/* Hover Effects */
-header .social-svg:hover { 
-  transform: scale(1.25); 
-}
-
-/* Brand specific colors on hover */
-.social-links a[aria-label="Facebook"]:hover svg { fill: #1877F2; }
-.social-links a[aria-label="Instagram"]:hover svg { fill: #E1306C; }
-.social-links a[aria-label="YouTube"]:hover svg { fill: #FF0000; }
-.social-links a[aria-label="TikTok"]:hover svg { fill: #00f2ea; }
-.social-links a[aria-label="Spotify"]:hover svg { fill: #1DB954; }
-.social-links a[aria-label="Apple Music"]:hover svg { fill: #FC3C44; }
-.social-links a[aria-label="Bandcamp"]:hover svg { fill: #629aa9; }
+/* ---------- UTILS ---------- */
+.no-underline { text-decoration: none !important; }
