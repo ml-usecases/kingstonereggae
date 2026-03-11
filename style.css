@@ -353,33 +353,37 @@ header .social-svg {
   flex-wrap: wrap;
 }
 
-/* Icons Container */
 .social-links {
   display: flex;
   gap: 12px;
   align-items: center;
   text-decoration: none !important;
-  font-size: 0; /* Prevents ghost underscores */
+  font-size: 0; /* Prevents underlines on spaces */
 }
 
-/* Individual Link Wrapper */
+/* Individual social media links */
 .social-links a {
   text-decoration: none !important;
   display: flex;
   line-height: 0;
+  border: none;
 }
 
-/* The Icons */
+/* The actual SVG icon shapes */
 header .social-svg {
-  width: 22px !important;
   height: 22px !important;
-  fill: #FFFFFF; /* White for your Dark Blue/Amber theme */
+  width: auto !important;
+  fill: #FFFFFF; /* High-contrast white */
   transition: all 0.3s ease;
   display: block;
 }
 
-/* Brand Hover Effects */
-header .social-svg:hover { transform: scale(1.25); }
+/* Hover Effects */
+header .social-svg:hover { 
+  transform: scale(1.25); 
+}
+
+/* Brand specific colors on hover */
 .social-links a[aria-label="Facebook"]:hover svg { fill: #1877F2; }
 .social-links a[aria-label="Instagram"]:hover svg { fill: #E1306C; }
 .social-links a[aria-label="YouTube"]:hover svg { fill: #FF0000; }
