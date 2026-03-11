@@ -343,18 +343,36 @@ header .social-svg {
   display: block; /* Changing from inline to block stops underline behavior */
 }
 
+/* The 'Smush' container */
 .social-links {
-  display: flex;       /* This is the most important "smush" tool */
-  gap: 15px;           /* This controls the space exactly, with no 'ghost' underlines */
+  display: flex;
+  gap: 15px; /* Adjust this to change space between icons */
   align-items: center;
-  
-  /* The Fixes: */
-  text-decoration: none !important; /* Forces underlines to vanish */
-  font-size: 0;                     /* Collapses the invisible text-space to zero */
+  text-decoration: none !important;
+  font-size: 0; /* Anti-underscore fix */
 }
 
 .social-links a {
   text-decoration: none !important;
-  display: flex;       /* Makes the link "shrink-wrap" the icon */
-  line-height: 0;      /* Removes any vertical text spacing */
+  line-height: 0;
+  display: flex;
 }
+
+header .social-svg {
+  width: 24px !important;
+  height: 24px !important;
+  fill: #FFFFFF; /* White default */
+  transition: all 0.3s ease;
+  display: block;
+}
+
+/* Hover colors */
+header .social-svg:hover {
+  transform: scale(1.15);
+}
+
+/* Individual brand colors on hover - adjusted for your Amber/Blue theme */
+.social-links a[aria-label="Facebook"]:hover svg { fill: #1877F2; }
+.social-links a[aria-label="Instagram"]:hover svg { fill: #E1306C; } /* Insta Pink */
+.social-links a[aria-label="YouTube"]:hover svg { fill: #FF0000; }
+.social-links a[aria-label="TikTok"]:hover svg { fill: #00f2ea; } /* TikTok Teal */
