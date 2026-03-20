@@ -234,3 +234,93 @@ img.responsive {
 
 /* ---------- UTILS ---------- */
 .no-underline { text-decoration: none !important; }
+
+/* ---------- PRESS RELEASE ---------- */
+.press-release {
+  background: rgba(188, 147, 96, 0.1); /* Subtle tint of your header color */
+  border: 1px solid #bc9360;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 40px;
+}
+
+.pr-content {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+}
+
+.pr-artwork {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  max-width: 300px;
+}
+
+.pr-title {
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 2px;
+  font-size: 0.9em;
+  color: #bc9360;
+  margin: 0;
+}
+
+.pr-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5em;
+  margin: 10px 0;
+  color: #FFFFFF;
+}
+
+.pr-date {
+  font-style: italic;
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+.pr-body {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.pr-description {
+  font-style: italic;
+  opacity: 0.9;
+  border-left: 3px solid #bc9360;
+  padding-left: 15px;
+  margin: 20px 0;
+}
+
+.pr-cta {
+  font-weight: bold;
+  color: #FFBF00; /* Amber Gold */
+}
+
+/* Larger Socials for PR section */
+.pr-socials {
+  margin-top: 25px;
+  justify-content: flex-start; /* Aligns with text */
+  gap: 20px;
+}
+
+.pr-socials .social-svg, 
+.pr-socials .social-icon-img {
+  height: 32px !important; /* Larger than header */
+}
+
+/* Mobile Responsiveness for PR */
+@media (max-width: 768px) {
+  .pr-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .pr-description {
+    border-left: none;
+    border-top: 1px solid #bc9360;
+    padding-left: 0;
+    padding-top: 15px;
+  }
+  .pr-socials {
+    justify-content: center;
+  }
+}
