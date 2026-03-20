@@ -45,7 +45,7 @@ nav a:hover {
   margin: auto;
 }
 
-/* ---------- HEADER CONTACT & SOCIALS ---------- */
+/* ---------- HEADER & SOCIALS ---------- */
 .contact-info {
   display: flex;
   flex-direction: row;
@@ -72,7 +72,7 @@ nav a:hover {
   gap: 12px;
   align-items: center;
   text-decoration: none !important;
-  font-size: 0; /* Prevents ghost underscores/spaces */
+  font-size: 0;
 }
 
 .social-links a {
@@ -82,19 +82,22 @@ nav a:hover {
   border: none;
 }
 
-/* Unified Icon Sizing (SVG & Image sources) */
-header .social-svg, 
-.social-icon-img {
-  height: 22px !important;
-  width: auto !important;
-  fill: #FFFFFF;
+/* Icon Styling - SVGs (FB, YT, TikTok) */
+.social-svg {
+  height: 22px;
+  width: auto;
+  fill: #FFFFFF; /* Forces icons to be white and hollow */
   transition: all 0.3s ease;
   display: block;
 }
 
-/* Ensure official image logos start as White */
+/* Icon Styling - Images (Spotify, Apple, IG, Bandcamp) */
 .social-icon-img {
-  filter: brightness(0) invert(1);
+  height: 22px;
+  width: auto;
+  filter: brightness(0) invert(1); /* Forces images to be white and hollow */
+  transition: all 0.3s ease;
+  display: block;
 }
 
 /* Global Hover Scale */
@@ -103,141 +106,20 @@ header .social-svg,
   transform: scale(1.25);
 }
 
-/* SVG Brand Colors (Direct Fill) */
+/* Hover Colors - SVGs */
 .social-links a[aria-label="Facebook"]:hover svg { fill: #1877F2; }
 .social-links a[aria-label="YouTube"]:hover svg { fill: #FF0000; }
 .social-links a[aria-label="TikTok"]:hover svg { fill: #00f2ea; }
 
-/* Image Brand Colors (Calculated Filters) */
-/* Instagram Pink (#E1306C) */
+/* Hover Colors - Images (Filters) */
 .social-links a[aria-label="Instagram"]:hover .social-icon-img { filter: invert(29%) sepia(87%) saturate(2751%) hue-rotate(315deg) brightness(91%) contrast(105%); }
-/* Spotify Green (#1DB954) */
 .social-links a[aria-label="Spotify"]:hover .social-icon-img { filter: invert(44%) sepia(91%) saturate(1352%) hue-rotate(114deg) brightness(95%) contrast(101%); }
-/* Apple Music Red (#FC3C44) */
 .social-links a[aria-label="Apple Music"]:hover .social-icon-img { filter: invert(36%) sepia(84%) saturate(3733%) hue-rotate(341deg) brightness(101%) contrast(98%); }
-/* Bandcamp Teal (#629aa9) */
 .social-links a[aria-label="Bandcamp"]:hover .social-icon-img { filter: invert(61%) sepia(11%) saturate(1210%) hue-rotate(146deg) brightness(93%) contrast(87%); }
-
-/* ---------- IMAGES & GALLERY ---------- */
-img.responsive {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.banner {
-  width: 20%;
-  height: auto;
-  display: block;
-  margin: 2rem auto;
-}
-
-@media (max-width: 600px) {
-  .banner { width: 80%; }
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.gallery img {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  object-fit: cover;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.gallery img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* ---------- VIDEO & EMBEDS ---------- */
-.video-wrapper, .portrait-video {
-  position: relative;
-  width: 100%;
-  padding-bottom: 177.78%; /* 9:16 vertical ratio */
-  height: 0;
-  overflow: hidden;
-}
-
-.video-wrapper iframe, .portrait-video iframe {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-}
-
-.tiktok-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 2rem auto;
-}
-
-/* ---------- BANDCAMP EMBED ---------- */
-.bandcamp-container {
-  padding: 1rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.bandcamp-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  aspect-ratio: 1 / 1.15;
-}
-
-.bandcamp-wrapper iframe {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%; border: 0;
-}
-
-/* ---------- LIGHTBOX ---------- */
-.lightbox {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 1000;
-}
-
-.lightbox.active { visibility: visible; opacity: 1; }
-.lightbox img { max-width: 90%; max-height: 80%; border-radius: 8px; }
-
-.lightbox-close {
-  position: absolute;
-  top: 1.5rem; right: 2rem;
-  font-size: 2rem; color: white; cursor: pointer;
-}
-
-.lightbox-arrow {
-  position: absolute;
-  top: 50%; font-size: 3rem; color: white;
-  cursor: pointer; transform: translateY(-50%);
-  padding: 0 1rem;
-}
-
-.lightbox-arrow.left { left: 1rem; }
-.lightbox-arrow.right { right: 1rem; }
-
-/* ---------- UTILS ---------- */
-.no-underline { text-decoration: none !important; }
 
 /* ---------- PRESS RELEASE ---------- */
 .press-release {
-  background: rgba(188, 147, 96, 0.1); /* Subtle tint of your header color */
+  background: rgba(188, 147, 96, 0.1); 
   border: 1px solid #bc9360;
   border-radius: 12px;
   padding: 30px;
@@ -293,22 +175,107 @@ img.responsive {
 
 .pr-cta {
   font-weight: bold;
-  color: #FFBF00; /* Amber Gold */
+  color: #FFBF00;
 }
 
-/* Larger Socials for PR section */
 .pr-socials {
   margin-top: 25px;
-  justify-content: flex-start; /* Aligns with text */
+  justify-content: flex-start;
   gap: 20px;
 }
 
+/* Sizing Override for Press Release Icons */
 .pr-socials .social-svg, 
 .pr-socials .social-icon-img {
-  height: 32px !important; /* Larger than header */
+  height: 32px !important;
 }
 
-/* Mobile Responsiveness for PR */
+/* ---------- IMAGES & VIDEO ---------- */
+img.responsive {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.banner {
+  width: 20%;
+  height: auto;
+  display: block;
+  margin: 2rem auto;
+}
+
+@media (max-width: 600px) {
+  .banner { width: 80%; }
+}
+
+.video-wrapper, .portrait-video {
+  position: relative;
+  width: 100%;
+  padding-bottom: 177.78%; 
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper iframe, .portrait-video iframe {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+}
+
+/* ---------- GALLERY & LIGHTBOX ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.lightbox {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+}
+
+.lightbox.active { visibility: visible; opacity: 1; }
+.lightbox img { max-width: 90%; max-height: 80%; border-radius: 8px; }
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem; right: 2rem;
+  font-size: 2rem; color: white; cursor: pointer;
+}
+
+.lightbox-arrow {
+  position: absolute;
+  top: 50%; font-size: 3rem; color: white;
+  cursor: pointer; transform: translateY(-50%);
+  padding: 0 1rem;
+}
+
+.lightbox-arrow.left { left: 1rem; }
+.lightbox-arrow.right { right: 1rem; }
+
+/* ---------- RESPONSIVENESS ---------- */
 @media (max-width: 768px) {
   .pr-content {
     flex-direction: column;
