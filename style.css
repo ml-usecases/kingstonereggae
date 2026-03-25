@@ -314,3 +314,17 @@ img.responsive {
 .pr-socials .social-icon-img {
   height: 32px !important;
 }
+
+/* ---------- GTRACKS HOVER FIX ---------- */
+
+/* 1. Ensure the icon starts as white */
+.social-links a[aria-label="Gtracks"] .social-icon-img {
+  filter: brightness(0) invert(1) !important;
+}
+
+/* 2. Clear the white filter and apply Gtracks Red on hover */
+.social-links a[aria-label="Gtracks"]:hover .social-icon-img {
+  filter: none !important; /* This clears the white filter */
+  filter: invert(17%) sepia(91%) saturate(6353%) hue-rotate(354deg) brightness(91%) contrast(92%) !important;
+  transform: scale(1.25);
+}
