@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Official website of Kingstone, a five-piece reggae group. Learn more about us, explore our music and watch our videos." />
   <title>Gallery | Kingstone Reggae</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Roboto&family=Montserrat&display=swap" rel="stylesheet" />
@@ -13,27 +12,16 @@
 <body>
 <header>
   <img src="images/banner.jpg" alt="Kingstone Reggae" class="banner"/>
-  
-  <!-- Shared contact info injected here -->
   <div class="contact-info-placeholder"></div>
 </header>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="john.html">John</a>
-  <a href="israel.html">Israel</a>
-  <a href="enoch.html">Enoch</a>
-  <a href="gavin.html">Gavin</a>
-  <a href="paul.html">Paul</a>
-  <a href="gallery.html">Gallery</a>
-</nav>
+<nav class="nav-placeholder"></nav>
 
 <div class="container">
   <h2>Gallery</h2>
   <div class="gallery" id="gallery"></div>
 </div>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox">
   <span class="lightbox-close" id="lightboxClose">&times;</span>
   <span class="lightbox-arrow left" id="prevArrow">&#10094;</span>
@@ -41,7 +29,6 @@
   <span class="lightbox-arrow right" id="nextArrow">&#10095;</span>
 </div>
 
-<!-- Gallery Logic -->
 <script>
   const images = [
     "bw10.jpg", "gal01.jpg", "gal02.jpg", "gal03.jpg", 
@@ -110,8 +97,5 @@
   });
 </script>
 
-<!-- Shared Content Loader -->
-<script src="shared.js"></script>
-
-</body>
+<script src="shared.js"></script> </body>
 </html>
