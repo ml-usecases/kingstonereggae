@@ -291,3 +291,26 @@ img.responsive {
     justify-content: center;
   }
 }
+
+/* ---------- GTRACKS & ICON OVERRIDES ---------- */
+
+/* Force Gtracks and other image icons to be white and transparent in the background */
+.social-icon-img {
+  filter: brightness(0) invert(1);
+}
+
+/* Specific Gtracks Red Hover Effect */
+.social-links a[aria-label="Gtracks"]:hover .social-icon-img { 
+  filter: invert(17%) sepia(91%) saturate(6353%) hue-rotate(354deg) brightness(91%) contrast(92%); 
+}
+
+/* Ensure all SVG icons (FB, YT, TikTok) are also white */
+.social-svg {
+  fill: #FFFFFF !important;
+}
+
+/* Scale up icons specifically for the Press Release section */
+.pr-socials .social-svg, 
+.pr-socials .social-icon-img {
+  height: 32px !important;
+}
