@@ -9,6 +9,28 @@
   <link href="https://googleapis.com" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <style>
+    /* Typography & Content Layout */
+    .intro-text {
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    .intro-text ul {
+      margin: 15px 0;
+      padding-left: 20px;
+    }
+    .intro-text li {
+      margin-bottom: 8px;
+    }
+    .legal-notice {
+      font-size: 0.9rem;
+      background: #f9f9f9;
+      padding: 15px;
+      border-left: 4px solid #333;
+      margin: 20px 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Container for the Embed Portal */
     .upload-frame-wrapper {
       position: relative;
       width: 100%;
@@ -21,19 +43,14 @@
     }
     .upload-iframe {
       width: 100%;
-      /* 
-        Uses Viewport Height (vh). 
-        Calculates screen height minus header/nav, 
-        ensuring the full upload interface fits cleanly on one screen view.
-      */
       height: 75vh; 
-      min-height: 550px; /* Safe minimum height for tiny phone screens */
-      max-height: 900px; /* Prevents extreme stretching on massive monitors */
+      min-height: 600px; 
+      max-height: 900px; 
       border: none;
       display: block;
     }
 
-    /* Clean fallback hint text */
+    /* Bottom Text Layout */
     .upload-hint {
       text-align: center;
       font-size: 0.9rem;
@@ -52,15 +69,25 @@
 <nav class="nav-placeholder"></nav> 
 
 <div class="container">
-  <h2>Upload Media</h2>
-  <p>If you have been to one of our gigs, we would love to see your pictures and videos! 
-Share your name and email. If you want, we'd love to give you credit for your work.
-Unless otherwise agreed, by uploading media you allow us to use it.
-If you have any concerns you're welcome to email us. We're a friendly bunch!
+  <h2>Share Your Gig Media!</h2>
+  
+  <div class="intro-text">
+    <p>If you've been to one of our live shows, we would love to see the experience through your lens! Drop your photos and videos into our portal below to share them directly with the band.</p>
+    
+    <ul>
+      <li><strong>Get credited:</strong> Please include your name and email address so we know who to thank! We love giving credit to our community.</li>
+      <li><strong>Need to reach us?</strong> If you have any questions or unique ideas, feel free to drop us an email. We're a friendly bunch!</li>
+    </ul>
 
-Thanks for sharing the love!</p>
+    <div class="legal-notice">
+      <em>The legal stuff:</em> By uploading media here, you agree that Kingstone can share your content on our official platforms and website, unless we have mutually agreed otherwise. 
+    </div>
+    
+    <p><strong>Thanks for sharing the love!</strong></p>
+  </div>
   
   <div class="upload-frame-wrapper">
+    <!-- Unlocked iframe allows script executions to display upload actions -->
     <iframe 
       src="https://nubbo.app" 
       class="upload-iframe"
@@ -70,7 +97,10 @@ Thanks for sharing the love!</p>
     </iframe>
   </div>
 
-  <p class="upload-hint">Having trouble with the view? You can also <a href="https://nubbo.app" target="_blank" style="color: #d9534f; font-weight: bold;">click here</a> to open the portal fullscreen.</p>
+  <p class="upload-hint">
+    Having trouble with the upload view? 
+    <a href="https://nubbo.app" target="_blank" style="color: #d9534f; font-weight: bold;">Click here to open the portal in a fullscreen window</a>.
+  </p>
 </div>
 
 <script src="shared.js"></script>
