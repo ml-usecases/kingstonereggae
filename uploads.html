@@ -9,7 +9,7 @@
   <link href="https://googleapis.com" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <style>
-    /* Content Layout Configuration */
+    /* Typography & Content Layout */
     .intro-text {
       line-height: 1.6;
       margin-bottom: 25px;
@@ -26,7 +26,7 @@
     .legal-notice {
       font-size: 0.9rem;
       background: #f9f9f9;
-      color: #222222 !important; /* Overrides style.css white-on-white text collision */
+      color: #222222 !important; 
       padding: 15px;
       border-left: 4px solid #333;
       margin: 20px 0;
@@ -36,48 +36,82 @@
       color: #222222 !important;
     }
 
-    /* Portal Button Styles Component */
+    /* Portal Form Box Component */
     .portal-box {
-      text-align: center;
       background: #ffffff;
       border: 1px solid #eaeaea;
-      padding: 40px 20px;
+      padding: 30px 25px;
       margin: 30px auto;
       max-width: 600px;
       border-radius: 8px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     }
     .portal-box p {
-      color: #222222 !important; /* Forces layout context details to render dark grey */
+      color: #222222 !important; 
+    }
+
+    /* Form Fields Styling */
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      color: #222222;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      background-color: #ffffff;
+      color: #222222;
+      box-sizing: border-box;
+    }
+    .form-group input:focus {
+      border-color: #111111;
+      outline: none;
     }
     
     /* High-contrast Action Button Elements */
     .upload-btn {
       display: inline-block;
+      width: 100%;
       background: #111111; 
-      color: #ffffff !important; /* Locks background layout text contrast to absolute white */
+      color: #ffffff !important; 
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      padding: 16px 36px;
+      padding: 16px 20px;
       font-size: 1.1rem;
       text-decoration: none;
       border-radius: 4px;
+      border: none;
+      cursor: pointer;
       transition: background 0.2s ease, transform 0.2s ease;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      box-sizing: border-box;
+      text-align: center;
     }
     .upload-btn:hover {
       background: #333333;
-      transform: translateY(-2px);
     }
-    .upload-btn:active {
-      transform: translateY(0);
+    
+    /* Initially hidden portal block */
+    #nubbo-portal-block {
+      display: none;
+      text-align: center;
+      animation: fadeIn 0.4s ease-in-out forwards;
     }
-    .portal-subtext {
-      margin-top: 15px;
-      font-size: 0.85rem;
-      color: #666666 !important; /* Resolves low-contrast text warning rules */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -97,7 +131,7 @@
     <p>If you've been to one of our live shows, we would love to see the experience through your lens! Drop your photos and videos into our portal below to share them directly with the band.</p>
     
     <ul>
-      <li><strong>Get credited:</strong> Please include your name and email address so we know who to thank! We love giving credit to our community.</li>
+      <li><strong>Get credited:</strong> Please include your name and email address below so we know who to thank! We love giving credit to our community.</li>
       <li><strong>Need to reach us?</strong> If you have any questions or unique ideas, feel free to drop us an email. We're a friendly bunch!</li>
     </ul>
 
@@ -109,16 +143,55 @@
   </div>
   
   <div class="portal-box">
-    <p style="margin-bottom: 20px; font-weight: bold;">Click below to launch our secure cloud drop-box:</p>
-    <!-- Explicit Cloud Path Targeting Configuration Set To Custom URL Endpoint -->
-    <a href="https://app.nubbo.app/r/HSPO0WsD" target="_blank" rel="noopener noreferrer" class="upload-btn">
-      Launch Media Uploader
-    </a>
-    <p class="portal-subtext">Opens securely in a separate tab • No account or login required</p>
+    <!-- STEP 1: Gather Name + Email -->
+    <form id="credit-form" onsubmit="handleFormSubmit(event)">
+      <p style="margin-bottom: 20px; font-weight: bold;">Step 1: Enter your details for media credit:</p>
+      
+      <div class="form-group">
+        <label for="uploader-name">Your Full Name</label>
+        <input type="text" id="uploader-name" required placeholder="e.g. John Smith">
+      </div>
+      
+      <div class="form-group">
+        <label for="uploader-email">Your Email Address</label>
+        <input type="email" id="uploader-email" required placeholder="e.g. john@example.com">
+      </div>
+      
+      <button type="submit" class="upload-btn">Save Credits & Continue</button>
+    </form>
+
+    <!-- STEP 2: Reveals after Step 1 is clicked -->
+    <div id="nubbo-portal-block">
+      <p style="margin-bottom: 20px; font-weight: bold; color: #2e7d32;">✓ Details Logged!</p>
+      <p style="margin-bottom: 20px;">Now click below to drop your files into our secure storage bucket:</p>
+      <a href="https://app.nubbo.app/r/HSPO0WsD" target="_blank" rel="noopener noreferrer" class="upload-btn" style="background: #2e7d32;">
+        Open File Uploader
+      </a>
+      <p style="margin-top: 15px; font-size: 0.85rem; color: #666666 !important;">Opens securely in a separate tab • No login required</p>
+    </div>
   </div>
 
 </div>
 
 <script src="shared.js"></script>
+<script>
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('uploader-name').value;
+    const email = document.getElementById('uploader-email').value;
+    
+    // Compiles a clean text email body string
+    const subject = encodeURIComponent("Media Upload Credit: " + name);
+    const body = encodeURIComponent("Hey Kingstone!\n\nI am uploading media to your storage folder.\n\nHere are my details for image credit:\nName: " + name + "\nEmail: " + email + "\n\nThanks!");
+    
+    // Automatically triggers the fan's local mail engine to ping info@kingstonereggae.uk
+    window.location.href = "mailto:info@kingstonereggae.uk?subject=" + subject + "&body=" + body;
+    
+    // Swaps the interface panels over to reveal the Nubbo trigger button
+    document.getElementById('credit-form').style.display = 'none';
+    document.getElementById('nubbo-portal-block').style.display = 'block';
+  }
+</script>
 </body>
 </html>
