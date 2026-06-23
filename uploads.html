@@ -30,32 +30,43 @@
       border-radius: 0 4px 4px 0;
     }
 
-    /* Container for the Embed Portal */
-    .upload-frame-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 850px;
-      margin: 20px auto 40px auto;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      overflow: hidden;
-      background: #ffffff;
-    }
-    .upload-iframe {
-      width: 100%;
-      height: 75vh; 
-      min-height: 600px; 
-      max-height: 900px; 
-      border: none;
-      display: block;
-    }
-
-    /* Bottom Text Layout */
-    .upload-hint {
+    /* Portal Button Styles */
+    .portal-box {
       text-align: center;
-      font-size: 0.9rem;
-      color: #666;
+      background: #ffffff;
+      border: 1px solid #eaeaea;
+      padding: 40px 20px;
+      margin: 30px auto;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+    .upload-btn {
+      display: inline-block;
+      background: #111111; /* Sleek dark theme matching a reggae vibe */
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 16px 36px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+    .upload-btn:hover {
+      background: #333333;
+      transform: translateY(-2px);
+    }
+    .upload-btn:active {
+      transform: translateY(0);
+    }
+    .portal-subtext {
       margin-top: 15px;
+      font-size: 0.85rem;
+      color: #777;
     }
   </style>
 </head>
@@ -86,21 +97,15 @@
     <p><strong>Thanks for sharing the love!</strong></p>
   </div>
   
-  <div class="upload-frame-wrapper">
-    <!-- Unlocked iframe allows script executions to display upload actions -->
-    <iframe 
-      src="https://nubbo.app" 
-      class="upload-iframe"
-      scrolling="yes"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
+  <!-- Replaced iframe with a clean native browser breakout button link -->
+  <div class="portal-box">
+    <p style="margin-bottom: 20px; font-weight: bold; color: #222;">Click below to launch our secure cloud drop-box:</p>
+    <a href="https://nubbo.app" target="_blank" rel="noopener noreferrer" class="upload-btn">
+      Launch Media Uploader
+    </a>
+    <p class="portal-subtext">Opens securely in a separate tab • No login required</p>
   </div>
 
-  <p class="upload-hint">
-    Having trouble with the upload view? 
-    <a href="https://nubbo.app" target="_blank" style="color: #d9534f; font-weight: bold;">Click here to open the portal in a fullscreen window</a>.
-  </p>
 </div>
 
 <script src="shared.js"></script>
