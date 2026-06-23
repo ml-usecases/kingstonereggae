@@ -157,37 +157,36 @@
   </div>
   
   <div class="portal-box">
-    <!-- STEP 1: The Form submits fields to Formspree -->
+    <!-- STEP 1: Local Input Collection -->
     <form id="credit-form" onsubmit="handleFormSubmit(event)">
       <p style="margin-bottom: 20px; font-weight: bold;">Step 1: Enter your details for media credit:</p>
       
       <div class="form-group">
         <label for="uploader-name">Your Full Name</label>
-        <input type="text" name="Name" id="uploader-name" required placeholder="e.g. John Smith">
+        <input type="text" id="uploader-name" required placeholder="e.g. John Smith">
       </div>
       
       <div class="form-group">
         <label for="uploader-email">Your Email Address</label>
-        <input type="email" name="Email" id="uploader-email" required placeholder="e.g. john@example.com">
+        <input type="email" id="uploader-email" required placeholder="e.g. john@example.com">
       </div>
 
-      <!-- NEW: Comments Box Component -->
       <div class="form-group">
         <label for="uploader-comments">Comments / Gig Details (Optional)</label>
-        <textarea name="Comments" id="uploader-comments" placeholder="e.g. Taken at the London show on Saturday!"></textarea>
+        <textarea id="uploader-comments" placeholder="e.g. Taken at the London show on Saturday!"></textarea>
       </div>
       
       <button type="submit" id="submit-btn" class="upload-btn">Save Credits & Continue</button>
     </form>
 
-    <!-- STEP 2: Instantly swaps in after the user hits submit -->
+    <!-- STEP 2: Pre-populated custom trigger link wrapper -->
     <div id="nubbo-portal-block">
       <p style="margin-bottom: 20px; font-weight: bold; color: #2e7d32;">✓ Details Logged Successfully!</p>
       <p style="margin-bottom: 20px;">Click below to open our drop-box and upload your files directly to our cloud folder:</p>
-      <a href="https://app.nubbo.app/r/HSPO0WsD" target="_blank" rel="noopener noreferrer" class="upload-btn" style="background: #2e7d32;">
+      <a id="dynamic-nubbo-link" href="https://app.nubbo.app/r/HSPO0WsD" target="_blank" rel="noopener noreferrer" class="upload-btn" style="background: #2e7d32;">
         Open File Uploader
       </a>
-      <p style="margin-top: 15px; font-size: 0.85rem; color: #666666 !important;">Opens securely in a separate tab • No login required</p>
+      <p style="margin-top: 15px; font-size: 0.85rem; color: #666666 !important;">Opens securely in a separate tab • Safe for mobile & desktop</p>
     </div>
   </div>
 
@@ -198,28 +197,27 @@
   function handleFormSubmit(event) {
     event.preventDefault();
     
-    const form = event.target;
-    const button = document.getElementById('submit-btn');
+    // Read input elements
+    const name = document.getElementById('uploader-name').value;
+    const email = document.getElementById('uploader-email').value;
+    const comments = document.getElementById('uploader-comments').value;
     
-    button.disabled = true;
-    button.innerText = "Saving Details...";
-
-    const formspreeEndpoint = "https://formspree.io/f/xykqzvjp";
-
-    fetch(formspreeEndpoint, {
-      method: "POST",
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      document.getElementById('credit-form').style.display = 'none';
-      document.getElementById('nubbo-portal-block').style.display = 'block';
-    })
-    .catch(error => {
-      alert("Oops! There was a slight problem logging your details. Please try again.");
-      button.disabled = false;
-      button.innerText = "Save Credits & Continue";
-    });
+    // Base cloud drive target link
+    const baseLink = "https://app.nubbo.app/r/HSPO0WsD";
+    
+    // Build parameters that Nubbo automatically extracts to fill profile forms
+    let queryParams = "?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email);
+    
+    if (comments.trim() !== "") {
+      queryParams += "&description=" + encodeURIComponent(comments);
+    }
+    
+    // Updates link dynamically right before button reveal
+    document.getElementById('dynamic-nubbo-link').href = baseLink + queryParams;
+    
+    // Interface panel transition toggle
+    document.getElementById('credit-form').style.display = 'none';
+    document.getElementById('nubbo-portal-block').style.display = 'block';
   }
 </script>
 </body>
