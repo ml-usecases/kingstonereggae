@@ -102,6 +102,10 @@
     .upload-btn:hover {
       background: #333333;
     }
+    .upload-btn:disabled {
+      background: #999999;
+      cursor: not-allowed;
+    }
     
     /* Initially hidden portal block */
     #nubbo-portal-block {
@@ -143,27 +147,27 @@
   </div>
   
   <div class="portal-box">
-    <!-- STEP 1: Gather Name + Email -->
+    <!-- STEP 1: The Form submits seamlessly to Formspree behind the scenes -->
     <form id="credit-form" onsubmit="handleFormSubmit(event)">
       <p style="margin-bottom: 20px; font-weight: bold;">Step 1: Enter your details for media credit:</p>
       
       <div class="form-group">
         <label for="uploader-name">Your Full Name</label>
-        <input type="text" id="uploader-name" required placeholder="e.g. John Smith">
+        <input type="text" name="Name" id="uploader-name" required placeholder="e.g. John Smith">
       </div>
       
       <div class="form-group">
         <label for="uploader-email">Your Email Address</label>
-        <input type="email" id="uploader-email" required placeholder="e.g. john@example.com">
+        <input type="email" name="Email" id="uploader-email" required placeholder="e.g. john@example.com">
       </div>
       
-      <button type="submit" class="upload-btn">Save Credits & Continue</button>
+      <button type="submit" id="submit-btn" class="upload-btn">Save Credits & Continue</button>
     </form>
 
-    <!-- STEP 2: Reveals after Step 1 is clicked -->
+    <!-- STEP 2: Instantly swaps in after the user hits submit -->
     <div id="nubbo-portal-block">
-      <p style="margin-bottom: 20px; font-weight: bold; color: #2e7d32;">✓ Details Logged!</p>
-      <p style="margin-bottom: 20px;">Now click below to drop your files into our secure storage bucket:</p>
+      <p style="margin-bottom: 20px; font-weight: bold; color: #2e7d32;">✓ Details Logged Successfully!</p>
+      <p style="margin-bottom: 20px;">Click below to open our drop-box and upload your files directly to our cloud folder:</p>
       <a href="https://app.nubbo.app/r/HSPO0WsD" target="_blank" rel="noopener noreferrer" class="upload-btn" style="background: #2e7d32;">
         Open File Uploader
       </a>
@@ -178,19 +182,32 @@
   function handleFormSubmit(event) {
     event.preventDefault();
     
-    const name = document.getElementById('uploader-name').value;
-    const email = document.getElementById('uploader-email').value;
+    const form = event.target;
+    const button = document.getElementById('submit-btn');
     
-    // Compiles a clean text email body string
-    const subject = encodeURIComponent("Media Upload Credit: " + name);
-    const body = encodeURIComponent("Hey Kingstone!\n\nI am uploading media to your storage folder.\n\nHere are my details for image credit:\nName: " + name + "\nEmail: " + email + "\n\nThanks!");
-    
-    // Automatically triggers the fan's local mail engine to ping info@kingstonereggae.uk
-    window.location.href = "mailto:info@kingstonereggae.uk?subject=" + subject + "&body=" + body;
-    
-    // Swaps the interface panels over to reveal the Nubbo trigger button
-    document.getElementById('credit-form').style.display = 'none';
-    document.getElementById('nubbo-portal-block').style.display = 'block';
+    // Visual processing state changes
+    button.disabled = true;
+    button.innerText = "Saving Details...";
+
+    const formspreeEndpoint = "https://formspree.io/f/xykqzvjp";
+
+    // Sends the payload quietly via AJAX without any redirects
+    fetch(formspreeEndpoint, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      // Instantly reveals Step 2 with your unique Nubbo layout link
+      document.getElementById('credit-form').style.display = 'none';
+      document.getElementById('nubbo-portal-block').style.display = 'block';
+    })
+    .catch(error => {
+      // Fallback fallback if the client loses network connection mid-stream
+      alert("Oops! There was a slight problem logging your details. Please try again.");
+      button.disabled = false;
+      button.innerText = "Save Credits & Continue";
+    });
   }
 </script>
 </body>
