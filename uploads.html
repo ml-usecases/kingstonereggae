@@ -9,7 +9,7 @@
   <link href="https://googleapis.com" rel="stylesheet">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <style>
-    /* Typography & Content Layout */
+    /* Content Layout Configuration */
     .intro-text {
       line-height: 1.6;
       margin-bottom: 25px;
@@ -21,16 +21,22 @@
     .intro-text li {
       margin-bottom: 8px;
     }
+    
+    /* Clean Legal Alert Panel */
     .legal-notice {
       font-size: 0.9rem;
       background: #f9f9f9;
+      color: #222222 !important; /* Overrides style.css white-on-white text collision */
       padding: 15px;
       border-left: 4px solid #333;
       margin: 20px 0;
       border-radius: 0 4px 4px 0;
     }
+    .legal-notice em {
+      color: #222222 !important;
+    }
 
-    /* Portal Button Styles */
+    /* Portal Button Styles Component */
     .portal-box {
       text-align: center;
       background: #ffffff;
@@ -41,10 +47,15 @@
       border-radius: 8px;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     }
+    .portal-box p {
+      color: #222222 !important; /* Forces layout context details to render dark grey */
+    }
+    
+    /* High-contrast Action Button Elements */
     .upload-btn {
       display: inline-block;
       background: #111111; 
-      color: #ffffff;
+      color: #ffffff !important; /* Locks background layout text contrast to absolute white */
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       text-transform: uppercase;
@@ -66,7 +77,7 @@
     .portal-subtext {
       margin-top: 15px;
       font-size: 0.85rem;
-      color: #777;
+      color: #666666 !important; /* Resolves low-contrast text warning rules */
     }
   </style>
 </head>
@@ -97,9 +108,9 @@
     <p><strong>Thanks for sharing the love!</strong></p>
   </div>
   
-  <!-- VERIFIED LINK: Points strictly to your custom media request box -->
   <div class="portal-box">
-    <p style="margin-bottom: 20px; font-weight: bold; color: #222;">Click below to launch our secure cloud drop-box:</p>
+    <p style="margin-bottom: 20px; font-weight: bold;">Click below to launch our secure cloud drop-box:</p>
+    <!-- Explicit Cloud Path Targeting Configuration Set To Custom URL Endpoint -->
     <a href="https://app.nubbo.app/r/HSPO0WsD" target="_blank" rel="noopener noreferrer" class="upload-btn">
       Launch Media Uploader
     </a>
