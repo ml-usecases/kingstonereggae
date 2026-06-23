@@ -63,7 +63,8 @@
       margin-bottom: 6px;
       font-size: 0.95rem;
     }
-    .form-group input {
+    .form-group input, 
+    .form-group textarea {
       width: 100%;
       padding: 12px;
       border: 1px solid #cccccc;
@@ -72,10 +73,17 @@
       background-color: #ffffff;
       color: #222222;
       box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
     }
-    .form-group input:focus {
+    .form-group input:focus, 
+    .form-group textarea:focus {
       border-color: #111111;
       outline: none;
+    }
+    /* Restricts vertical resizing to prevent layout breaking */
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
     }
     
     /* High-contrast Action Button Elements */
@@ -147,7 +155,7 @@
   </div>
   
   <div class="portal-box">
-    <!-- STEP 1: The Form submits seamlessly to Formspree behind the scenes -->
+    <!-- STEP 1: The Form submits fields to Formspree -->
     <form id="credit-form" onsubmit="handleFormSubmit(event)">
       <p style="margin-bottom: 20px; font-weight: bold;">Step 1: Enter your details for media credit:</p>
       
@@ -159,6 +167,12 @@
       <div class="form-group">
         <label for="uploader-email">Your Email Address</label>
         <input type="email" name="Email" id="uploader-email" required placeholder="e.g. john@example.com">
+      </div>
+
+      <!-- NEW: Comments Box Component -->
+      <div class="form-group">
+        <label for="uploader-comments">Comments / Gig Details (Optional)</label>
+        <textarea name="Comments" id="uploader-comments" placeholder="e.g. Taken at the London show on Saturday!"></textarea>
       </div>
       
       <button type="submit" id="submit-btn" class="upload-btn">Save Credits & Continue</button>
@@ -185,25 +199,21 @@
     const form = event.target;
     const button = document.getElementById('submit-btn');
     
-    // Visual processing state changes
     button.disabled = true;
     button.innerText = "Saving Details...";
 
     const formspreeEndpoint = "https://formspree.io/f/xykqzvjp";
 
-    // Sends the payload quietly via AJAX without any redirects
     fetch(formspreeEndpoint, {
       method: "POST",
       body: new FormData(form),
       headers: { 'Accept': 'application/json' }
     })
     .then(response => {
-      // Instantly reveals Step 2 with your unique Nubbo layout link
       document.getElementById('credit-form').style.display = 'none';
       document.getElementById('nubbo-portal-block').style.display = 'block';
     })
     .catch(error => {
-      // Fallback fallback if the client loses network connection mid-stream
       alert("Oops! There was a slight problem logging your details. Please try again.");
       button.disabled = false;
       button.innerText = "Save Credits & Continue";
