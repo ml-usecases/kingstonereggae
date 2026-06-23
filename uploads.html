@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Upload media to Kingstone, a five-piece reggae group.">
+  <title>Uploads | Kingstone Official</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://googleapis.com" rel="stylesheet">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <style>
+    /* Styling to ensure the upload window looks beautiful and fits the page layout */
+    .upload-frame-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 800px; /* Aligns with typical container max-widths */
+      margin: 30px auto; /* Centers the portal vertically and horizontally */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Adds a subtle depth border */
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .upload-iframe {
+      width: 100%;
+      height: 600px; /* Provides ample breathing room for dragging and dropping files */
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="images/banner.jpg" alt="Kingstone Reggae" class="banner"/>
+  <div class="contact-info-placeholder"></div> 
+</header>
+
+<!-- The navigation ribbon automatically updates here via shared.js -->
+<nav class="nav-placeholder"></nav> 
+
+<div class="container">
+  <h2>Upload Media</h2>
+  <p>Share your photos and videos directly with us below. Files go straight to our cloud.</p>
+  
+  <div class="upload-frame-wrapper">
+    <!-- Embedded Nubbo File Request Form -->
+    <iframe 
+      src="https://app.nubbo.app/r/HSPO0WsD" 
+      class="upload-iframe"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+</body>
+</html>

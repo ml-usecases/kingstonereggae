@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <a href="gavin.html">Gavin</a>
     <a href="paul.html">Paul</a>
     <a href="gallery.html">Gallery</a>
+    <a href="uploads.html">Uploads</a>
   `;
 
   // Injects into <div class="contact-info-placeholder"></div>
