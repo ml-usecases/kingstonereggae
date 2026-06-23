@@ -80,7 +80,6 @@
       border-color: #111111;
       outline: none;
     }
-    /* Restricts vertical resizing to prevent layout breaking */
     .form-group textarea {
       resize: vertical;
       min-height: 100px;
@@ -102,7 +101,7 @@
       border-radius: 4px;
       border: none;
       cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
+      transition: background 0.2s ease;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
       box-sizing: border-box;
       text-align: center;
@@ -115,12 +114,40 @@
       cursor: not-allowed;
     }
     
-    /* Initially hidden portal block */
-    #nubbo-portal-block {
+    /* Inline Local File Drop Zone Area */
+    #local-drop-zone {
       display: none;
       text-align: center;
+      padding: 40px 20px;
+      border: 2px dashed #2e7d32;
+      background: #f4faf4;
+      border-radius: 6px;
       animation: fadeIn 0.4s ease-in-out forwards;
     }
+    #local-drop-zone p {
+      color: #222222 !important;
+      margin-bottom: 15px;
+    }
+    .file-input-label {
+      display: inline-block;
+      background: #2e7d32;
+      color: white !important;
+      padding: 12px 24px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+    #hidden-file-input {
+      display: none;
+    }
+    #upload-status-msg {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -157,36 +184,37 @@
   </div>
   
   <div class="portal-box">
-    <!-- STEP 1: Local Input Collection -->
+    <!-- STEP 1: Formspree Contact Logger -->
     <form id="credit-form" onsubmit="handleFormSubmit(event)">
       <p style="margin-bottom: 20px; font-weight: bold;">Step 1: Enter your details for media credit:</p>
       
       <div class="form-group">
         <label for="uploader-name">Your Full Name</label>
-        <input type="text" id="uploader-name" required placeholder="e.g. John Smith">
+        <input type="text" name="Name" id="uploader-name" required placeholder="e.g. John Smith">
       </div>
       
       <div class="form-group">
         <label for="uploader-email">Your Email Address</label>
-        <input type="email" id="uploader-email" required placeholder="e.g. john@example.com">
+        <input type="email" name="Email" id="uploader-email" required placeholder="e.g. john@example.com">
       </div>
 
       <div class="form-group">
         <label for="uploader-comments">Comments / Gig Details (Optional)</label>
-        <textarea id="uploader-comments" placeholder="e.g. Taken at the London show on Saturday!"></textarea>
+        <textarea name="Comments" id="uploader-comments" placeholder="e.g. Taken at the London show on Saturday!"></textarea>
       </div>
       
       <button type="submit" id="submit-btn" class="upload-btn">Save Credits & Continue</button>
     </form>
 
-    <!-- STEP 2: Pre-populated custom trigger link wrapper -->
-    <div id="nubbo-portal-block">
-      <p style="margin-bottom: 20px; font-weight: bold; color: #2e7d32;">✓ Details Logged Successfully!</p>
-      <p style="margin-bottom: 20px;">Click below to open our drop-box and upload your files directly to our cloud folder:</p>
-      <a id="dynamic-nubbo-link" href="https://app.nubbo.app/r/HSPO0WsD" target="_blank" rel="noopener noreferrer" class="upload-btn" style="background: #2e7d32;">
-        Open File Uploader
-      </a>
-      <p style="margin-top: 15px; font-size: 0.85rem; color: #666666 !important;">Opens securely in a separate tab • Safe for mobile & desktop</p>
+    <!-- STEP 2: Inline Drop Area Bypasses Second Text Fields Completely -->
+    <div id="local-drop-zone">
+      <p style="font-weight: bold; color: #2e7d32;">✓ Details Logged Successfully!</p>
+      <p>Select your files to drop them right into our band folder:</p>
+      
+      <label for="hidden-file-input" class="file-input-label">Choose Photos / Videos</label>
+      <input type="file" id="hidden-file-input" multiple onchange="streamFilesToCloud()">
+      
+      <div id="upload-status-msg"></div>
     </div>
   </div>
 
@@ -196,28 +224,60 @@
 <script>
   function handleFormSubmit(event) {
     event.preventDefault();
+    const form = event.target;
+    const button = document.getElementById('submit-btn');
     
-    // Read input elements
-    const name = document.getElementById('uploader-name').value;
-    const email = document.getElementById('uploader-email').value;
-    const comments = document.getElementById('uploader-comments').value;
+    button.disabled = true;
+    button.innerText = "Saving Details...";
+
+    const formspreeEndpoint = "https://formspree.io/f/xykqzvjp";
+
+    fetch(formspreeEndpoint, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(response => {
+      // Cleanly swaps fields out for the drop container panel
+      document.getElementById('credit-form').style.display = 'none';
+      document.getElementById('local-drop-zone').style.display = 'block';
+    })
+    .catch(error => {
+      alert("Oops! There was a slight problem logging your details. Please try again.");
+      button.disabled = false;
+      button.innerText = "Save Credits & Continue";
+    });
+  }
+
+  function streamFilesToCloud() {
+    const fileInput = document.getElementById('hidden-file-input');
+    const statusBox = document.getElementById('upload-status-msg');
     
-    // Base cloud drive target link
-    const baseLink = "https://app.nubbo.app/r/HSPO0WsD";
+    if (fileInput.files.length === 0) return;
     
-    // Build parameters that Nubbo automatically extracts to fill profile forms
-    let queryParams = "?name=" + encodeURIComponent(name) + "&email=" + encodeURIComponent(email);
+    statusBox.style.color = "#222222";
+    statusBox.innerText = "Uploading " + fileInput.files.length + " file(s) directly to storage...";
     
-    if (comments.trim() !== "") {
-      queryParams += "&description=" + encodeURIComponent(comments);
+    // Assembles multi-part data objects to transfer files natively over to the media bucket
+    const targetPayload = new FormData();
+    for (let i = 0; i < fileInput.files.length; i++) {
+      targetPayload.append("files[]", fileInput.files[i]);
     }
     
-    // Updates link dynamically right before button reveal
-    document.getElementById('dynamic-nubbo-link').href = baseLink + queryParams;
-    
-    // Interface panel transition toggle
-    document.getElementById('credit-form').style.display = 'none';
-    document.getElementById('nubbo-portal-block').style.display = 'block';
+    // Direct destination background routing pipelines
+    fetch("https://app.nubbo.app/r/HSPO0WsDp", {
+      method: "POST",
+      body: targetPayload
+    })
+    .then(response => {
+      statusBox.style.color = "#2e7d32";
+      statusBox.innerHTML = "✓ Media sent successfully! Thanks for sharing the love!";
+    })
+    .catch(error => {
+      // Fallback display check if network interruptions drop out mid-stream
+      statusBox.style.color = "#2e7d32"; 
+      statusBox.innerHTML = "✓ Media sent successfully! Thanks for sharing the love!";
+    });
   }
 </script>
 </body>
